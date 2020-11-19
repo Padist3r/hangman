@@ -1,16 +1,36 @@
-import random
+import functions
 
+word = functions.get_word()
+guesses = -1
+game_word = [char.upper() for char in word]
+game_blanks = [" _ " for char in word]
+game_done = [" _ " for char in word]
 
-def get_word():
-    """
-    Creates a list from almost every word in english and returns a random word.
-    :return: returns a random word
-    """
-    words_list = []
-    with open("only_words.txt", "r") as words:
-        for word in words:
-            words_list.append(word.strip())
-    return words_list[random.randint(0, len(words_list))]
+print(game_word)        # TODO Remove this code, for debugging only
+print(game_blanks)      # TODO Remove this code, for debugging only
 
+functions.start_screen()
+print("Please press enter to begin!!")
 
-print(get_word())
+while True:
+    user = str(input(" -- > ")).casefold()
+    print(word)     # TODO Remove this code, for debugging only
+    if user.upper() in game_word:
+        functions.game_screen(guesses)
+        game_blanks[game_word.index(user.upper())] = user.upper()
+        game_word[game_word.index(user.upper())] = " _ "
+        print(game_blanks)
+
+        if game_word == game_done:
+            print("GAME OVER YOU WIN")
+            # Create new screen as a celebration for winning
+            break
+
+    else:
+        guesses += 1
+        functions.game_screen(guesses)
+        print(game_blanks)
+        if guesses == 7:
+            print("YOU LOSE")
+            # If player loses, show the complete word.
+            break
