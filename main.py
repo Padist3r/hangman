@@ -1,36 +1,51 @@
 import functions
 
-word = functions.get_word()
-guesses = -1
-game_word = [char.upper() for char in word]
-game_blanks = [" _ " for char in word]
-game_done = [" _ " for char in word]
+# TODO Rewrite the main code so it matches all characters of character (x)
+#  when the user types in (x). Code is also hard to read in main function.
 
-print(game_word)        # TODO Remove this code, for debugging only
-print(game_blanks)      # TODO Remove this code, for debugging only
 
-functions.start_screen()
-print("Please press enter to begin!!")
+def hangman():
+    word = functions.get_word()
+    guesses = -1
+    game_word = [char.upper() for char in word]
+    game_blanks = [" _ " for char in word]
+    game_done = [" _ " for char in word]
 
-while True:
-    user = str(input(" -- > ")).casefold()
-    print(word)     # TODO Remove this code, for debugging only
-    if user.upper() in game_word:
-        functions.game_screen(guesses)
-        game_blanks[game_word.index(user.upper())] = user.upper()
-        game_word[game_word.index(user.upper())] = " _ "
-        print(game_blanks)
+    functions.start_screen()
+    print("Please press enter to begin!!")
 
-        if game_word == game_done:
-            print("GAME OVER YOU WIN")
-            # Create new screen as a celebration for winning
+    while True:
+        user = str(input(" -- > ")).casefold()
+        if user.upper() in game_word:
+            functions.game_screen(guesses)
+            game_blanks[game_word.index(user.upper())] = user.upper()
+            game_word[game_word.index(user.upper())] = " _ "
+            print(game_blanks)
+
+            if game_word == game_done:
+                functions.win_screen()
+                break
+
+        else:
+            guesses += 1
+            functions.game_screen(guesses)
+            print(game_blanks)
+            if guesses == 7:
+                functions.lose_screen(word.upper())
+                break
+
+
+if __name__ == '__main__':
+    while True:
+        hangman()
+        play_again = input("Would you like to play again? Y/N --> ").casefold()
+
+        yn = ["y", "n"]
+        if play_again == "y":
+            continue
+        elif play_again == "n":
             break
-
-    else:
-        guesses += 1
-        functions.game_screen(guesses)
-        print(game_blanks)
-        if guesses == 7:
-            print("YOU LOSE")
-            # If player loses, show the complete word.
-            break
+        else:
+            while play_again not in yn:
+                play_again = input("Please enter a valid response... "
+                                   "Would you like to play again? Y/N --> ")
