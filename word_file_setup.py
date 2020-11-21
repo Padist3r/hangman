@@ -1,6 +1,7 @@
 # This module was used to write only the basic words to a new file.
 # It removed all words that contained numbers or other characters.
-# Also removed any names or any word starting with a capital letter.
+# Also removed any words starting with a capital letter, such as names and
+# placed etc.
 
 words = []
 with open("words.txt", "r") as all_words:

@@ -73,7 +73,8 @@ def game_screen(wrong_guesses):
         |
         |____________
         """,
-        """|---------
+        """
+        |---------
         |     |
         |     0
         |    \\|/
@@ -138,6 +139,13 @@ def win_screen():
 
 
 def lose_screen(word):
+    # This if statement corrects for the formatting of the frame if the
+    # len(word) is odd
+    if len(word) % 2 == 0:
+        x = 0
+    else:
+        x = 1
+
     space = 57 // 2
     w_space = len(word) // 2
     clear()
@@ -148,7 +156,7 @@ def lose_screen(word):
         ######                                                         ######
         ######                      YOU LOSE!! :(                      ######
         ######                      THE WORD WAS:                      ######
-        ######{" " * (space - w_space)}{word}{" " * (space - w_space)} ######
+        ######{" " * (space - w_space)}{word}{" " * (space - w_space - x)} ######
         ######                                                         ######
         #####################################################################
         #####################################################################
