@@ -7,6 +7,7 @@ def hangman():
     game_word = [char.upper() for char in word]
     game_word_display = [" _ " for char in word]
     game_done = [" _ " for char in word]
+    wrong_guesses = []
 
     functions.start_screen()
     print("Please press enter to begin!!")
@@ -29,6 +30,7 @@ def hangman():
                     game_word[i] = " _ "
 
             print(game_word_display)
+            print(f"Wrong guesses: {wrong_guesses}")
 
             # When all the letters in `game_word` are found and removed
             # `game_word` will equal `game_done`
@@ -38,11 +40,13 @@ def hangman():
 
         else:
 
-            # TODO Create and display the letters that you have already tried
+            if user not in wrong_guesses and user.isalpha():
+                wrong_guesses.append(user.upper())
 
             guesses += 1
             functions.game_screen(guesses)
             print(game_word_display)
+            print(f"Wrong guesses: {wrong_guesses}")
             if guesses == 7:
                 functions.lose_screen(word.upper())
                 break
