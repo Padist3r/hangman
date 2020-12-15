@@ -15,7 +15,7 @@ def hangman():
     while True:
         user = str(input(" -- > ")).casefold()
 
-        # This if statement makes sure that the initial value of -1 doesn't
+        # This `if` statement makes sure that the initial value of -1 doesn't
         # get passed on if the user gets a correct guess on their first turn
         if user.upper() in game_word:
             if guesses == -1:
